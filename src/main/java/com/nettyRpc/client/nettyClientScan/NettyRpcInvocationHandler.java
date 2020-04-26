@@ -43,12 +43,12 @@ public class NettyRpcInvocationHandler implements InvocationHandler {
         RPCClientHandler rpcClientHandler = new RPCClientHandler();
         try {
             bootstrap.group(group)
-                    .channel(NioSocketChannel.class)
+                    .channel(NioSocketChannel.class)//指定channel类型为NioSocketChannel
                     .option(ChannelOption.SO_KEEPALIVE, true)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        protected void initChannel(SocketChannel ch) throws Exception {
+                        protected void initChannel(SocketChannel ch) throws Exception {//ch为NioSocketChannel实例
                             ch.pipeline().addLast(new ObjectEncoder());
                             //反序列化对象时指定类解析器，null表示使用默认的类加载器
                             ch.pipeline().addLast(new ObjectDecoder(1024 * 64, ClassResolvers.cacheDisabled(null)));
