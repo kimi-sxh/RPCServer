@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 /**
- * Created by zhangshukang.
+ * Created by SUXH.
  */
 public class NettyRpcServerHandler extends ChannelHandlerAdapter {
 
@@ -17,9 +17,12 @@ public class NettyRpcServerHandler extends ChannelHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         //获取调用信息，寻找服务实现类
         RpcInfo rpcInfo = (RpcInfo) msg;
-        String implName = getImplClassName(rpcInfo.getClassName());
+        String implName = getImplClassName(rpcInfo.getClassName());//获取接口对应的实现
         Class<?> clazz = Class.forName(implName);
         Method method = clazz.getMethod(rpcInfo.getMethodName(), rpcInfo.getParamTypes());
+        /*
+         * 调用业务层返回信息
+         */
         Object result = method.invoke(clazz.newInstance(), rpcInfo.getParams());
         ctx.writeAndFlush(result);
     }

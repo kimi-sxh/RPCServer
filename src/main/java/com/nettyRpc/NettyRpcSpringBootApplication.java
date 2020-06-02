@@ -9,7 +9,7 @@ import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerF
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
- * Created by zhangshukang.
+ * Created by SUXH.
  */
 
 @SpringBootApplication
@@ -17,13 +17,19 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class NettyRpcSpringBootApplication implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
 
     public static void main(String[] args) {
-
         ConfigurableApplicationContext run = SpringApplication.run(NettyRpcSpringBootApplication.class);
     }
 
-
+    /**
+     * <b>概要：</b>:
+     *      通过实现WebServerFactoryCustomizer 设置启动端口
+     * <b>作者：</b>SUXH</br>
+     * <b>日期：</b>2020/4/28 16:10 </br>
+     * @param:
+     * @return:
+     */
     @Override
     public void customize(ConfigurableServletWebServerFactory factory) {
-        factory.setPort(9999);
+        factory.setPort(9393);
     }
 }

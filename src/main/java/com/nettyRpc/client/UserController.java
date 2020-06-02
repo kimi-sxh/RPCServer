@@ -1,11 +1,13 @@
 package com.nettyRpc.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by zhangshukang on 2019/4/3.
+ * Created by SUXH on 2019/4/3.
  */
 
 @RestController
@@ -16,9 +18,9 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/callRpc")
-    public String callRpcTest(){
+    public String callRpcTest(@RequestParam(value = "getParams") String getParams){
         //master
-        userService.callRpc("callRpc execute......");
+        userService.callRpc(getParams + " execute......");
         return "ok";
     }
 

@@ -12,12 +12,14 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 
 /**
- * Created by zhangshukang on.
+ * Created by SUXH on.
  *
  * 服务端启动类
  *
  */
 public class NettyRpcServer {
+
+    public static final int PORT = 9392;
 
     public static void main(String[] args){
         NioEventLoopGroup boss = new NioEventLoopGroup();
@@ -36,7 +38,7 @@ public class NettyRpcServer {
                         }
                     });
             //bind初始化端口是异步的，但调用sync则会同步阻塞等待端口绑定成功
-            ChannelFuture future = bootstrap.bind(80).sync();
+            ChannelFuture future = bootstrap.bind(PORT).sync();
             future.channel().closeFuture().sync();
         } catch (Exception e) {
             e.printStackTrace();

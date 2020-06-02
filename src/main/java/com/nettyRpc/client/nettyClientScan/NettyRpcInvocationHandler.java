@@ -2,6 +2,8 @@ package com.nettyRpc.client.nettyClientScan;
 
 import com.nettyRpc.client.RpcInfo;
 import com.nettyRpc.client.RPCClientHandler;
+import com.nettyRpc.demo.NIOServer;
+import com.nettyRpc.server.NettyRpcServer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -17,7 +19,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
- * Created by zhangshukang on 2019/4/3.
+ * Created by suxh on 2020/06/02 jdk代理
  */
 public class NettyRpcInvocationHandler implements InvocationHandler {
 
@@ -35,7 +37,7 @@ public class NettyRpcInvocationHandler implements InvocationHandler {
         rpcInfo.setClassName(type.getName());
         rpcInfo.setMethodName(method.getName());
         rpcInfo.setParamTypes(method.getParameterTypes());
-        rpcInfo.setParams(args);
+        rpcInfo.setParams(args);//UserService入参
 
         //使用netty发送调用信息给服务提供方
         NioEventLoopGroup group = new NioEventLoopGroup();
@@ -57,7 +59,7 @@ public class NettyRpcInvocationHandler implements InvocationHandler {
                         }
                     });
             //connect是异步的，但调用其future的sync则是同步等待连接成功
-            ChannelFuture future = bootstrap.connect("127.0.0.1", 80).sync();
+            ChannelFuture future = bootstrap.connect("127.0.0.1", NettyRpcServer.PORT).sync();
             //同步等待调用信息发送成功
             future.channel().writeAndFlush(rpcInfo).sync();
             //同步等待RPCClientHandler的channelRead被触发后（意味着收到了调用结果）

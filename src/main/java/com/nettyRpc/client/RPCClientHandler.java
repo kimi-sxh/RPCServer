@@ -4,7 +4,7 @@ import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
- * Created by zhangshukang.
+ * Created by SUXH.
  */
 public class RPCClientHandler extends ChannelHandlerAdapter {
 
